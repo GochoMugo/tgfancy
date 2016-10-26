@@ -46,11 +46,11 @@ constructor.
 
 > Here comes the fanciness
 
-### Ordered message sending
+### Ordered sending:
 
-Using an internal queue, we can ensure messages are sent in order
-without having to implement the wait-for-response-to-send-next-message
-logic.
+Using an internal queue, we can ensure messages are sent, *to a specific
+chat*, in order without having to implement the
+wait-for-response-to-send-next-message logic.
 
 For example,
 
