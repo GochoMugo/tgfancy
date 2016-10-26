@@ -49,7 +49,7 @@ constructor.
 ### Ordered message sending
 
 Using an internal queue, we can ensure messages are sent in order
-without having to implementing the wait-for-response-to-send-next-message
+without having to implement the wait-for-response-to-send-next-message
 logic.
 
 For example,
@@ -68,7 +68,7 @@ Fancied functions: `sendMessage`, `sendPhoto`, `sendAudio`, `sendDocument`,
 
 An earlier discussion on this feature can be found [here][docs-queue-1].
 
-[docs-queue-1]:https://github.com/yagop/node-telegram-bot-api/issues/192#issuecomment-249488807
+[docs-queue-1]:https://github.com/yagop/node-telegram-bot-api/issues/192
 
 
 ## license:
