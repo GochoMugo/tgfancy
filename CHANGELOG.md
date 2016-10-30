@@ -6,6 +6,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+Fixed:
+
+* Add missing dependency, 'tg-resolve'
 
 
 ## 0.1.0 - 2016-10-30
