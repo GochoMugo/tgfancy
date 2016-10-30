@@ -4,7 +4,7 @@
   "description": "A Fancy, Higher-Level Wrapper for Telegram Bot API",
   "main": "lib/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "grunt test"
   },
   "repository": {
     "type": "git",
@@ -27,5 +27,11 @@
     "lodash": "^4.16.4",
     "node-telegram-bot-api": "^0.24.0",
     "tg-resolve": "^1.2.0"
+  },
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-cli": "^1.2.0",
+    "grunt-eslint": "^19.0.0",
+    "load-grunt-tasks": "^3.5.2"
   }
 }
