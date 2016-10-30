@@ -5,6 +5,7 @@
  * Handles loading necessary configurations and other relevant configuration
  * details.
  */
+/* eslint-disable no-console */
 
 
 // module variables

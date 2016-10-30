@@ -5,11 +5,12 @@
  * An example demonstrating resolving chat IDs, in this case,
  * our username.
  */
+/* eslint-disable no-console */
 
 
 // own modules
 const Tgfancy = require("..");
-const state = require("./init")
+const state = require("./init");
 
 
 // module variables

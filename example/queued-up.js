@@ -4,6 +4,7 @@
  *
  * An example demonstrating queueing of sending functions.
  */
+/* eslint-disable no-console */
 
 
 // own modules
@@ -17,7 +18,7 @@ const bot = new Tgfancy(state.token);
 
 function toLog(message) {
     return function() { console.log(message); };
-};
+}
 
 
 bot.sendMessage(state.userId, "first message").then(toLog("first sent"));

@@ -5,11 +5,12 @@
  * An example demonstrating just kicking a user, without
  * banning them.
  */
+/* eslint-disable no-console */
 
 
 // own modules
 const Tgfancy = require("..");
-const state = require("./init")
+const state = require("./init");
 
 
 // module variables
@@ -35,7 +36,7 @@ if (!groupId || !userId) {
 // we pass 'false' as the last parameter to signify
 // that we do not want to ban the user
 bot.kickChatMember(groupId, userId, false)
-    .then(function(messages) {
+    .then(function(messages) { // eslint-disable-line no-unused-vars
         // 'messages' is an Array of the Message entities
         // returned by the Telegram API, after kicking and
         // unbanning user.

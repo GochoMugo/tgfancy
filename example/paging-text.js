@@ -4,11 +4,12 @@
  *
  * An example demonstrating paging of text in sendMessage().
  */
+/* eslint-disable no-console */
 
 
 // own modules
 const Tgfancy = require("..");
-const state = require("./init")
+const state = require("./init");
 
 
 // module variables
