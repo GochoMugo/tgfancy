@@ -8,29 +8,20 @@
 
 // own modules
 const Tgfancy = require("..");
+const state = require("./init");
 
 
 // module variables
-const token = process.env.TELEGRAM_TOKEN;
-const userId = process.env.TELEGRAM_ME;
-let bot;
+const bot = new Tgfancy(state.token);
 
 
-if (!token) {
-    console.error("Error: Telegram token is missing");
-    process.exit(1);
-}
-if (!userId) {
-    console.error("Error: Telegram User ID is missing");
-    process.exit(1);
-}
+function toLog(message) {
+    return function() { console.log(message); };
+};
 
 
-function toLog(message) { return function() { console.log(message); };  };
-
-bot = new Tgfancy(token);
-bot.sendMessage(userId, "first message").then(toLog("first sent"));
-bot.sendMessage(userId, "second message").then(toLog("second sent"));
+bot.sendMessage(state.userId, "first message").then(toLog("first sent"));
+bot.sendMessage(state.userId, "second message").then(toLog("second sent"));
 setTimeout(function() {
-    bot.sendMessage(userId, "third message").then(toLog("third sent"));
+    bot.sendMessage(state.userId, "third message").then(toLog("third sent"));
 }, 2000);
