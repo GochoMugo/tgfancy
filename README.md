@@ -145,6 +145,10 @@ Fancied functions: `["sendMessage", "forwardMessage",
 
 See example at `example/resolve-chatid.js`.
 
+**Note:** The Chat ID is resolved **before** the request
+is queued. Consider this, if order of messages gets messed
+up, when using this resolution.
+
 [pwr]:http://pwrtelegram.xyz/
 
 
