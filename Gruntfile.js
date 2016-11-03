@@ -22,8 +22,11 @@ exports = module.exports = function(grunt) {
                 "Gruntfile.js",
             ],
         },
+        mochaTest: {
+            src: ["test/*.js"],
+        },
     });
 
     grunt.registerTask("lint", ["eslint"]);
-    grunt.registerTask("test", ["lint"]);
+    grunt.registerTask("test", ["lint", "mochaTest"]);
 };

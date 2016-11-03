@@ -8,9 +8,8 @@
 
 [![Version](https://img.shields.io/npm/v/tgfancy.svg)](https://www.npmjs.com/package/tgfancy)
  [![Build Status](https://travis-ci.org/GochoMugo/tgfancy.svg?branch=master)](https://travis-ci.org/GochoMugo/tgfancy)
-<!-- [![Coverage Status](https://coveralls.io/repos/GochoMugo/tgfancy/badge.svg?branch=master)](https://coveralls.io/r/GochoMugo/tgfancy?branch=master)
+ [![Coverage Status](https://coveralls.io/repos/GochoMugo/tgfancy/badge.svg?branch=master)](https://coveralls.io/r/GochoMugo/tgfancy?branch=master)
  [![Dependency Status](https://gemnasium.com/GochoMugo/tgfancy.svg)](https://gemnasium.com/GochoMugo/tgfancy)
--->
 
 
 ## installation:
