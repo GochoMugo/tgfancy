@@ -28,14 +28,27 @@ if (!username) {
     console.error("Error: Telegram username is required");
     process.exit(1);
 }
-const userid = process.env.TELEGRAM_USERID;
+const userid = parseInt(process.env.TELEGRAM_USERID, 10);
 if (!userid) {
     console.error("Error: Telegram user ID is required");
     process.exit(1);
 }
-const client = new Tgfancy(token);
+const client = new Tgfancy(token, {
+    resolveChatId,
+});
 const timeout = 15 * 1000; // 15 secs
 
+
+// We are using a custom resolver function, since we are testing
+// that the method invokes resolver function, before sending the
+// message. We do not care how the resolver function works!
+function resolveChatId(token, username, done) {
+    return done(null, {
+        id: userid,
+        username: username.slice(1),
+        // ... other props missing
+    });
+}
 
 
 describe("module.exports", function() {
