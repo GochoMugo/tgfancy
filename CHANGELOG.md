@@ -6,7 +6,14 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+Added:
 
+* Tests and CI have been added
+
+
+Changed:
+
+* Drop support for Node.js v4
 
 
 ## 0.1.1 - 2016-10-30
