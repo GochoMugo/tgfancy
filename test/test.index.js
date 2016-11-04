@@ -66,11 +66,8 @@ describe("tgfancy", function() {
     it("is an instance of Tgfancy", function() {
         should(client).be.an.instanceof(Tgfancy);
     });
-    it("exports all methods on TelegramBot", function() {
-        Object.getOwnPropertyNames(TelegramBot.prototype)
-            .forEach(function(methodName) {
-                should(client[methodName]).be.ok();
-            });
+    it("is a sub-class of TelegramBot", function() {
+        should(client).be.an.instanceof(TelegramBot);
     });
     it(".token is the token registered during construction", function() {
         should(client.token).eql(token);
@@ -81,7 +78,7 @@ describe("tgfancy", function() {
 });
 
 
-describe("Tgfancy#sendMessage()", function() {
+describe("Text Paging (using Tgfancy#sendMessage())", function() {
     this.timeout(timeout);
     it("pages long message", function() {
         const length = 5500;
