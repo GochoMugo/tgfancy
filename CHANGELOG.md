@@ -6,6 +6,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+
+
+
+## 0.2.1 - 2016-11-04
+
 Changed:
 
 * Tgfancy is a proper sub-class of TelegramBot
