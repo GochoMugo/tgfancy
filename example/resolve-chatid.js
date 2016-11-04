@@ -22,4 +22,5 @@ bot.sendMessage(state.username, "resolved username to chat ID")
         console.log("Message sent to chat, after resolution of ID");
     }).catch(function(error) {
         console.error(error);
+        process.exit(1);
     });

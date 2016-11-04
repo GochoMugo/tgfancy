@@ -21,5 +21,6 @@ bot.sendMessage(state.userId, longText)
     .then(function(messages) {
         console.log("Long message has been set in %d 'pages'", messages.length);
     }).catch(function(error) {
-        console.error("Error: %s\n%j", error, error);
+        console.error(error);
+        process.exit(1);
     });

@@ -42,5 +42,6 @@ bot.kickChatMember(groupId, userId, false)
         // unbanning user.
         console.log("User kicked but not banned.");
     }).catch(function(error) {
-        console.error("Error: %s\n%j", error, error);
+        console.error(error);
+        process.exit(1);
     });
