@@ -9,6 +9,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 Added:
 
 * Resolve all chat IDs in method's arguments
+* Make package smaller by adding more rules to `.npmignore`
 
 
 ## 0.2.1 - 2016-11-04

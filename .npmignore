@@ -1,0 +1,11 @@
+# from .gitignore
+node_modules/
+coverage/
+
+# additions
+example/
+Gruntfile.js
+test/
+.eslintrc.yml
+.gitignore
+.travis.yml
