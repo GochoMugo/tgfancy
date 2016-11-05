@@ -6,6 +6,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+
+
+
+## 0.3.0 - 2016-11-05
+
 Added:
 
 * Resolve all chat IDs in method's arguments
