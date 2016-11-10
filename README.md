@@ -52,6 +52,24 @@ constructor.
 
 > Here comes the fanciness
 
+<a name="feature-toggle"></a>
+All of the features below are **enabled by default**. However, you may want to
+disable some of them. This can be done passing a corresponding option to
+the constructor. For example, disabling
+[Chat ID Resolution](#chat-id-resolution):
+
+```js
+const bot = new Tgfancy(token, {
+    tgfancy: {
+        chatIdResolution: false, // If 'true', enable. Otherwise, disable!
+    },
+});
+```
+
+See example at `example/feature-toggled.js`.
+
+**tgfancy** adds the following fanciness:
+
 * [Ordered Sending](#ordered-sending)
 * [Text Paging](#text-paging)
 * [Chat ID Resolution](#chat-id-resolution)
@@ -64,6 +82,8 @@ constructor.
 Using an internal queue, we can ensure messages are sent, *to a specific
 chat*, in order without having to implement the
 wait-for-response-to-send-next-message logic.
+
+**Feature toggle option:** `orderedSending` (see [above](#feature-toggle))
 
 For example,
 
@@ -95,6 +115,10 @@ one after the other.
 
 The page number, for example `[01/10]`, is prefixed to the text.
 
+**Feature toggle option:** `textPaging` (see [above](#feature-toggle))
+
+For example,
+
 ```js
 // 'veryLongText' is a message that contains more than 4096 characters
 // Usually, trying to send this message would result in the API returning
@@ -121,6 +145,10 @@ See example at `example/paging-text.js`.
 Usernames are automatically resolved to the target's corresponding
 unique identifier. By default, this resolution uses the
 [PWRTelegram API][pwr].
+
+**Feature toggle option:** `chatIdResolution` (see [above](#feature-toggle))
+
+For example,
 
 ```js
 bot.sendMessage("@gochomugo", "Message sent using username");
@@ -172,6 +200,10 @@ as the last argument to `Tgfancy#kickChatMember()` will make
 Tgfancy executes the API method `unbanChatMember()` right after
 kicking the chat member, effectively kicking the user, without
 banning them.
+
+**Feature toggle option:** `kickWithoutBan` (see [above](#feature-toggle))
+
+For example,
 
 ```js
 // The last argument is called 'ban', is optional and

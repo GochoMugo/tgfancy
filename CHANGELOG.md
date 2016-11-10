@@ -6,6 +6,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+Added:
+
+* Toggling features
+
 Changed:
 
 * All options to **tgfancy** **MUST** be placed under the `tgfancy` key.
