@@ -6,7 +6,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+Changed:
 
+* All options to **tgfancy** **MUST** be placed under the `tgfancy` key.
 
 
 ## 0.3.0 - 2016-11-05

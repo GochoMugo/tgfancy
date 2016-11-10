@@ -24,7 +24,13 @@ $ npm install tgfancy --save
 
 ```js
 const Tgfancy = require("tgfancy");
-const bot = new Tgfancy(token);
+const bot = new Tgfancy(token, {
+    // all options to 'tgfancy' MUST be placed under the
+    // 'tgfancy' key, as shown below
+    tgfancy: {
+        option: "value",
+    },
+});
 
 bot.sendMessage(chatId, "text message");
 ```
@@ -128,10 +134,12 @@ an object representing the target entity.
 
 ```js
 const bot = new Tgfancy(token, {
-    resolveChatId(token, chatId, callback) {
-        // perform the resolution
-        // ... snip ...
-        return callback(null, user);
+    tgfancy: {
+        resolveChatId(token, chatId, callback) {
+            // perform the resolution
+            // ... snip ...
+            return callback(null, user);
+        },
     },
 });
 ```

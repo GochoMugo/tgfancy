@@ -34,7 +34,9 @@ if (!userid) {
     process.exit(1);
 }
 const client = new Tgfancy(token, {
-    resolveChatId,
+    tgfancy: {
+        resolveChatId,
+    },
 });
 const timeout = 15 * 1000; // 15 secs
 
