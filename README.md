@@ -55,7 +55,7 @@ constructor.
 <a name="feature-toggle"></a>
 Most of the features below are **enabled by default**. However, you may
 want to disable some of them. This can be done passing a corresponding
-option to the constructor. For example, disabling
+*feature toggle option* to the constructor. For example, disabling
 [Chat ID Resolution](#chat-id-resolution):
 
 ```js
@@ -70,7 +70,7 @@ See example at `example/feature-toggled.js`.
 
 <a name="feature-enable"></a>
 To enable the rest of the features, you need to set the corresponding
-*feature toggle option*. For example, enabling
+*feature enable option*. For example, enabling
 [Openshift WebHook](#openshift-webhook):
 
 ```js
@@ -241,7 +241,7 @@ and setting up webhook for the bot instance.
 For example,
 
 ```js
-const bot = Tgfancy(token, {
+const bot = new Tgfancy(token, {
     tgfancy: {
         openshiftWebHook: true, // enable this feature
     },
