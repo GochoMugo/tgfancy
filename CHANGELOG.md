@@ -6,6 +6,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+
+
+
+## 0.5.0 - 2016-11-15
+
 Added:
 
 * New fanciness: Openshift WebHook
