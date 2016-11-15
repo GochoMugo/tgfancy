@@ -8,11 +8,13 @@
 
 
 // npm-installed modules
+const _ = require("lodash");
+const TelegramBot = require("node-telegram-bot-api");
+const request = require("request");
 const should = require("should");
 
 
 // own modules
-const TelegramBot = require("node-telegram-bot-api");
 const Tgfancy = require("..");
 
 
@@ -33,12 +35,21 @@ if (!userid) {
     console.error("Error: Telegram user ID is required");
     process.exit(1);
 }
-const client = new Tgfancy(token, {
-    tgfancy: {
-        resolveChatId,
-    },
-});
 const timeout = 15 * 1000; // 15 secs
+let client = createClient();
+
+
+// construct the client. This is useful when we need
+// to re-create the client, particularly when testing openshift webhook
+// This allows us to re-use one token for all of our tests.
+function createClient(options) {
+    const opts = _.defaultsDeep({}, options, {
+        tgfancy: {
+            resolveChatId,
+        },
+    });
+    return new Tgfancy(token, opts);
+}
 
 
 // We are using a custom resolver function, since we are testing
@@ -132,6 +143,59 @@ describe("Chat-ID Resolution (using Tgfancy#sendMessage())", function() {
             .then(function(message) {
                 should(message.chat.id).eql(userid);
             });
+    });
+});
+
+
+describe("Openshift Webhook", function() {
+    let ip, port;
+
+    before(function() {
+        // this is a dummy URL that does NOT even know wtf is happening
+        process.env.OPENSHIFT_APP_UUID = 12345;
+        process.env.OPENSHIFT_APP_DNS = "http://gmugo.in/owh";
+        process.env.OPENSHIFT_NODEJS_IP = ip = "127.0.0.1";
+        process.env.OPENSHIFT_NODEJS_PORT = port = 9678;
+        client = createClient({
+            tgfancy: {
+                // enable the openshift-webhook fanciness
+                openshiftWebHook: true,
+            },
+        });
+    });
+    after(function() {
+        delete process.env.OPENSHIFT_APP_UUID;
+        delete process.env.OPENSHIFT_APP_DNS;
+        delete process.env.OPENSHIFT_NODEJS_IP;
+        delete process.env.OPENSHIFT_NODEJS_PORT;
+        client = createClient();
+    });
+    function triggerWebhook() {
+        request.post({
+            url: `http://${ip}:${port}/bot${token}`,
+            body: {
+                "update_id": 666,
+                message: {
+                    "message_id": 666,
+                    date: Date.now(),
+                    chat: {
+                        id: 666,
+                        type: "private",
+                    },
+                    text: "Trigger!",
+                },
+            },
+            json: true,
+        }, function(error) {
+            should(error).not.be.ok();
+        });
+    }
+
+    it("receives message", function(done) {
+        client.once("message", function() {
+            return done();
+        });
+        process.nextTick(triggerWebhook);
     });
 });
 

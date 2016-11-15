@@ -53,9 +53,9 @@ constructor.
 > Here comes the fanciness
 
 <a name="feature-toggle"></a>
-All of the features below are **enabled by default**. However, you may want to
-disable some of them. This can be done passing a corresponding option to
-the constructor. For example, disabling
+Most of the features below are **enabled by default**. However, you may
+want to disable some of them. This can be done passing a corresponding
+option to the constructor. For example, disabling
 [Chat ID Resolution](#chat-id-resolution):
 
 ```js
@@ -68,12 +68,26 @@ const bot = new Tgfancy(token, {
 
 See example at `example/feature-toggled.js`.
 
+<a name="feature-enable"></a>
+To enable the rest of the features, you need to set the corresponding
+*feature toggle option*. For example, enabling
+[Openshift WebHook](#openshift-webhook):
+
+```js
+const bot = new Tgfancy(token, {
+    tgfancy: {
+        openshiftWebHook: true, // 'true' to enable!
+    },
+});
+```
+
 **tgfancy** adds the following fanciness:
 
 * [Ordered Sending](#ordered-sending)
 * [Text Paging](#text-paging)
 * [Chat ID Resolution](#chat-id-resolution)
 * [Kick-without-Ban](#kick-without-ban)
+* [Openshift WebHook](#openshift-webhook)
 
 
 <a name="ordered-sending"></a>
@@ -213,6 +227,28 @@ bot.kickChatMember(chatId, userId, false);
 ```
 
 See example at `example/kick-only.js`.
+
+
+<a name="openshift-webhook"></a>
+### Openshift WebHook:
+
+It is easier to set up webhook for your bot on [Openshift][openshift].
+Enabling this feature allows **automatic detection if running on Openshift**
+and setting up webhook for the bot instance.
+
+**Feature enable option:** `openshiftWebHook` (see [above](#feature-enable))
+
+For example,
+
+```js
+const bot = Tgfancy(token, {
+    tgfancy: {
+        openshiftWebHook: true, // enable this feature
+    },
+});
+```
+
+[openshift]:https://openshift.com
 
 
 ## license:
