@@ -81,7 +81,7 @@ describe("tgfancy", function() {
 
 
 describe("Text Paging (using Tgfancy#sendMessage())", function() {
-    this.timeout(timeout);
+    this.timeout(timeout * 2);
     it("pages long message", function() {
         const length = 5500;
         const longText = Array(length + 1).join("#");
@@ -126,6 +126,7 @@ describe("Queued-methods (using Tgfancy#sendMessage())", function() {
 
 
 describe("Chat-ID Resolution (using Tgfancy#sendMessage())", function() {
+    this.timeout(timeout);
     it("resolves username", function() {
         return client.sendMessage(username, "message")
             .then(function(message) {
