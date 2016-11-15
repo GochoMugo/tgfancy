@@ -157,6 +157,7 @@ describe("Openshift Webhook", function() {
         process.env.OPENSHIFT_NODEJS_IP = ip = "127.0.0.1";
         process.env.OPENSHIFT_NODEJS_PORT = port = 9678;
         client = createClient({
+            polling: true,
             tgfancy: {
                 // enable the openshift-webhook fanciness
                 openshiftWebHook: true,
@@ -196,6 +197,9 @@ describe("Openshift Webhook", function() {
             return done();
         });
         process.nextTick(triggerWebhook);
+    });
+    it("disables polling", function() {
+        should(client.options.polling).not.be.ok();
     });
 });
 

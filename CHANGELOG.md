@@ -6,7 +6,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+Added:
 
+* Automatically disable polling if setting webhook on Openshift
 
 
 ## 0.5.0 - 2016-11-15

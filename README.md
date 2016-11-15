@@ -234,7 +234,7 @@ See example at `example/kick-only.js`.
 
 It is easier to set up webhook for your bot on [Openshift][openshift].
 Enabling this feature allows **automatic detection if running on Openshift**
-and setting up webhook for the bot instance.
+and setting up web-hook for the bot instance.
 
 **Feature enable option:** `openshiftWebHook` (see [above](#feature-enable))
 
@@ -244,6 +244,31 @@ For example,
 const bot = new Tgfancy(token, {
     tgfancy: {
         openshiftWebHook: true, // enable this feature
+    },
+});
+```
+
+Note that **polling is automatically disabled** if the web-hook is set.
+This allows you to use polling locally, but use a web-hook on Openshift.
+For example,
+
+```js
+const bot = new Tgfancy(token, {
+    polling: true, // use polling unless disabled by Openshift-WebHook feature
+    tgfancy: {
+        openshiftWebHook: true,
+    },
+});
+```
+
+You may also define **default web-hook parameters** to be used,
+if the bot is **not** running on Openshift. For example,
+
+```js
+const bot = new Tgfancy(token, {
+    webHook: { /* your parameters here */ }, // used if NOT on Openshift
+    tgfancy: {
+        openshiftWebHook: true,
     },
 });
 ```
