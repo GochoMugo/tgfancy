@@ -38,7 +38,7 @@ bot.sendMessage(chatId, "text message");
 
 ## introduction:
 
-**tgfancy is basically [node-telegram-bot-api][api] on steriods.**
+**tgfancy is basically [node-telegram-bot-api][api] on steroids.**
 Therefore, you **MUST** know how to work with [node-telegram-bot-api][api]
 before using this wrapper. **tgfancy** is a **drop-in replacement**!
 
