@@ -75,6 +75,26 @@ describe("module.exports", function() {
 });
 
 
+describe("sanity check dictates", function() {
+    function checkOrder(fns) {
+        const sorted = fns.slice().sort();
+        for (let i = 0; i < sorted.length; i++) {
+            should(sorted[i]).eql(fns[i]);
+        }
+    }
+    it("queuedSendFns are alphabetically ordered", function() {
+        const fns = Tgfancy.internals.queuedSendFns;
+        checkOrder(fns);
+    });
+    it("resolveChatIdFns are alphabetically ordered", function() {
+        const fns = Tgfancy.internals.resolveChatIdFns.map(function(fn) {
+            return fn[0];
+        });
+        checkOrder(fns);
+    });
+});
+
+
 describe("tgfancy", function() {
     it("is an instance of Tgfancy", function() {
         should(client).be.an.instanceof(Tgfancy);

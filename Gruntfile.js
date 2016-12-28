@@ -27,6 +27,9 @@ exports = module.exports = function(grunt) {
         },
     });
 
+    grunt.registerTask("testenv", "mark env as testing", function() {
+        process.env.NODE_ENV = "testing";
+    });
     grunt.registerTask("lint", ["eslint"]);
-    grunt.registerTask("test", ["lint", "mochaTest"]);
+    grunt.registerTask("test", ["testenv", "lint", "mochaTest"]);
 };
