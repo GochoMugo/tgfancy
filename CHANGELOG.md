@@ -6,7 +6,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+Added:
 
+* Add and modify functions requiring chat ID resolution
 
 
 ## 0.6.0 - 2016-11-15
