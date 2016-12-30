@@ -94,6 +94,10 @@ describe("sanity check dictates", function() {
         const fns = Tgfancy.internals.queuedSendFns;
         checkOrder(fns);
     });
+    it("ratelimitedFns are alphabetically ordered", function() {
+        const fns = Tgfancy.internals.ratelimitedFns;
+        checkOrder(fns);
+    });
     it("resolveChatIdFns are alphabetically ordered", function() {
         const fns = Tgfancy.internals.resolveChatIdFns.map(function(fn) {
             return fn[0];
@@ -242,6 +246,45 @@ describe("Openshift Webhook", function() {
     });
     it("disables polling", function() {
         should(client.options.polling).not.be.ok();
+    });
+});
+
+
+/**
+ * NOTE:
+ * we are NOT running tests for rate-limiting currently,
+ * as it is quite intensive.
+ * We should look for a better way to test rate-limiting.
+ * Until then, we should be switching between
+ * 'describe.skip' and 'describe.only' on our local machines
+ * when necessary. Live by faith! ;-)
+ */
+describe.skip("Ratelimiting", function() {
+    this.timeout(timeout * 10);
+    it("handles rate-limiting", function(done) {
+        const longText = Array(4096 * 9 + 1).join("#");
+        let interval = null;
+        const client = createClient({
+            tgfancy: {
+                orderedSending: false,
+                ratelimitingOptions: {
+                    maxRetries: 1,
+                    timeout: 100,
+                    notify() {
+                        clearInterval(interval);
+                        interval = null;
+                        return done();
+                    },
+                },
+            },
+        });
+        interval = setInterval(function() {
+            client.sendMessage(userid, longText)
+                .catch(function(error) {
+                    if (!interval) return;
+                    should(error.message).not.containEql("429");
+                });
+        }, 40);
     });
 });
 

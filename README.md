@@ -86,6 +86,7 @@ const bot = new Tgfancy(token, {
 * [Ordered Sending](#ordered-sending)
 * [Text Paging](#text-paging)
 * [Chat ID Resolution](#chat-id-resolution)
+* [Rate-Limiting](#ratelimiting)
 * [Emojification](#emojification)
 * [Kick-without-Ban](#kick-without-ban)
 * [Openshift WebHook](#openshift-webhook)
@@ -201,6 +202,85 @@ is queued. Consider this, if order of messages gets messed
 up, when using this resolution.
 
 [pwr]:http://pwrtelegram.xyz/
+
+
+<a name="ratelimiting"></a>
+### Rate-Limiting:
+
+Any request that encounters a `429` error i.e. rate-limiting error
+will be retried after some time (1 minute by default). The
+request will be retried for a number of times, until it succeeds or
+the maximum number of retries has been exceeded.
+
+**Feature toggle option:** `ratelimiting` (see [above](#feature-toggle))
+
+For example,
+
+```js
+const bot = new Tgfancy(token, {
+    tgfancy: {
+        // options for this fanciness
+        ratelimitingOptions: {
+            // number of times to retry a request before giving up
+            maxRetries: 10,         // default: 10
+            // number of milliseconds to wait before retrying the
+            // request
+            timeout: 1000 * 60,     // default: 60000 (1 minute)
+            // (optional) function invoked whenever this fanciness handles
+            // any ratelimiting error.
+            // this is useful for debugging and analysing your bot
+            // behavior
+            notify(methodName, ...args) {   // default: undefined
+                // 'methodName' is the name of the invoked method
+                // 'args' is an array of the arguments passed to the method
+                // do somethind useful here
+                // ...snip...
+            },
+        },
+    },
+});
+```
+
+Fancied functions: `[
+    "answerCallbackQuery",
+    "answerInlineQuery",
+    "downloadFile",
+    "editMessageCaption",
+    "editMessageReplyMarkup",
+    "editMessageText",
+    "forwardMessage",
+    "getChat",
+    "getChatAdministrators",
+    "getChatMember",
+    "getChatMembersCount",
+    "getFile",
+    "getFileLink",
+    "getGameHighScores",
+    "getUpdates",
+    "getUserProfilePhotos",
+    "kickChatMember",
+    "leaveChat",
+    "sendAudio",
+    "sendChatAction",
+    "sendContact",
+    "sendDocument",
+    "sendGame",
+    "sendLocation",
+    "sendMessage",
+    "sendPhoto",
+    "sendSticker",
+    "sendVenue",
+    "sendVideo",
+    "sendVoice",
+    "setGameScore",
+    "setWebHook",
+    "unbanChatMember",
+]`
+
+An earlier discussion on this feature can be found [here][docs-ratelimiting-1].
+See example at `example/ratelimited.js`.
+
+[docs-ratelimiting-1]:https://github.com/GochoMugo/tgfancy/issues/4
 
 
 <a name="emojification"></a>

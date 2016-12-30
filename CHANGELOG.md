@@ -9,7 +9,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 Added:
 
 * Add and modify functions requiring chat ID resolution
-* New fanciness: emojification
+* New fanciness: emojification, ratelimiting
 
 
 ## 0.6.0 - 2016-11-15
