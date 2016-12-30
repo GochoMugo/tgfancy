@@ -86,6 +86,7 @@ const bot = new Tgfancy(token, {
 * [Ordered Sending](#ordered-sending)
 * [Text Paging](#text-paging)
 * [Chat ID Resolution](#chat-id-resolution)
+* [Emojification](#emojification)
 * [Kick-without-Ban](#kick-without-ban)
 * [Openshift WebHook](#openshift-webhook)
 
@@ -200,6 +201,50 @@ is queued. Consider this, if order of messages gets messed
 up, when using this resolution.
 
 [pwr]:http://pwrtelegram.xyz/
+
+
+<a name="emojification"></a>
+### Emojification:
+
+Any Github-flavoured Markdown emoji, such as `:heart:` can be replaced
+automatically with their corresponding Unicode values. By default,
+uses the [node-emoji][emoji] library (Go give a star!).
+**Disabled by default**.
+
+**Feature enable option:** `emojification` (see [above](#feature-enable))
+
+For example,
+
+```js
+bot.sendMessage(chatId, "Message text with :heart: emoji")
+    .then(function(msg) {
+        // 'msg' is the Message sent to the chat
+        console.log(msg.text); // => "Message text with ❤️ emoji"
+    });
+```
+
+However, it is possible to define a custom function used to perform
+emojification. The function **must** have the signature,
+`emojify(text)` and return the emojified text.
+
+```js
+const bot = new Tgfancy(token, {
+    tgfancy: {
+        emojification: true,
+        emojify(text) {
+            // emojify here
+            // ... snip ...
+            return emojifiedText;
+        },
+    },
+});
+```
+
+Fancied functions: `["sendMessage", "editMessageText"]`
+
+See example at `example/emojified.js`.
+
+[emoji]:https://github.com/omnidan/node-emoji#readme
 
 
 <a name="kick-without-name"></a>

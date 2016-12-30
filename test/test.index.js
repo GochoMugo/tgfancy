@@ -9,6 +9,7 @@
 
 // npm-installed modules
 const _ = require("lodash");
+const emoji = require("node-emoji");
 const TelegramBot = require("node-telegram-bot-api");
 const request = require("request");
 const should = require("should");
@@ -45,6 +46,7 @@ let client = createClient();
 function createClient(options) {
     const opts = _.defaultsDeep({}, options, {
         tgfancy: {
+            emojification: true,
             resolveChatId,
         },
     });
@@ -82,6 +84,12 @@ describe("sanity check dictates", function() {
             should(sorted[i]).eql(fns[i]);
         }
     }
+    it("emojifiedFns are alphabetically ordered", function() {
+        const fns = Tgfancy.internals.emojifiedFns.map(function(fn) {
+            return fn[0];
+        });
+        checkOrder(fns);
+    });
     it("queuedSendFns are alphabetically ordered", function() {
         const fns = Tgfancy.internals.queuedSendFns;
         checkOrder(fns);
@@ -162,6 +170,20 @@ describe("Chat-ID Resolution (using Tgfancy#sendMessage())", function() {
         return client.sendMessage(username, "message")
             .then(function(message) {
                 should(message.chat.id).eql(userid);
+            });
+    });
+});
+
+
+describe("Emojification", function() {
+    this.timeout(timeout);
+    it("replaces GFM emoji in text", function() {
+        const emojistring = ":heart:";
+        const emojicode = emoji.get("heart");
+        return client.sendMessage(userid, "emoji " + emojistring)
+            .then(function(msg) {
+                should(msg.text).containEql(emojicode);
+                should(msg.text).not.containEql(emojistring);
             });
     });
 });
