@@ -90,6 +90,7 @@ const bot = new Tgfancy(token, {
 * [Emojification](#emojification)
 * [Kick-without-Ban](#kick-without-ban)
 * [Openshift WebHook](#openshift-webhook)
+* [Fetching updates via WebSocket](#websocket)
 
 
 <a name="ordered-sending"></a>
@@ -373,8 +374,8 @@ const bot = new Tgfancy(token, {
 });
 ```
 
-Note that **polling is automatically disabled** if the web-hook is set.
-This allows you to use polling locally, but use a web-hook on Openshift.
+Note that **polling and fetching updates via WebSocket are automatically disabled** if the web-hook is set.
+This allows you to use polling or WebSocket locally, but use a web-hook on Openshift.
 For example,
 
 ```js
@@ -399,6 +400,16 @@ const bot = new Tgfancy(token, {
 ```
 
 [openshift]:https://openshift.com
+
+<a name="websocket"></a>
+### Fetching updates via WebSocket
+
+You can fetch updates via WebSocket instead of using polling.
+
+**Disabled by default**.
+
+**Feature enable option:** `webSocket` (see [above](#feature-enable))
+If you wish to use custom bridge instead of the default one, pass `{url: "wss://url-of-your-bridge}`
 
 
 ## license:
