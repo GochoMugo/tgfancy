@@ -88,9 +88,9 @@ const bot = new Tgfancy(token, {
 * [Chat ID Resolution](#chat-id-resolution)
 * [Rate-Limiting](#ratelimiting)
 * [Emojification](#emojification)
+* [Fetching Updates via WebSocket](#websocket-updates)
 * [Kick-without-Ban](#kick-without-ban)
 * [Openshift WebHook](#openshift-webhook)
-* [Fetching updates via WebSocket](#websocket)
 
 
 <a name="ordered-sending"></a>
@@ -328,6 +328,48 @@ See example at `example/emojified.js`.
 [emoji]:https://github.com/omnidan/node-emoji#readme
 
 
+<a name="websocket-updates"></a>
+### Fetching Updates via WebSocket:
+
+In addition to polling and web-hooks, this introduces another mechanism
+for fetching your updates: **Webocket**. While currently it is **not**
+officially supported by Telegram, we have a *bridge* up and running
+that you can connect to for this purpose. **Disabled by default**.
+
+**Feature enable option:** `webSocket` (see [above](#feature-enable))
+
+For example,
+
+```js
+const bot = new Tgfancy(token, {
+    tgfancy: {
+        webSocket: true,
+    },
+});
+```
+
+The current default bridge is at
+*wss://telegram-websocket-bridge-qalwkrjzzs.now.sh* and is being run by
+[@GingerPlusPlus][gingerplusplus].
+
+You can specify more options as so:
+
+```js
+const bot = new Tgfancy(token, {
+    tgfancy: {
+        webSocket: {
+            // specify a custom URL for a different bridge
+            url: "wss://telegram-websocket-bridge-qalwkrjzzs.now.sh",
+        },
+    },
+});
+```
+
+See example at `example/web-socket.js`.
+
+[gingerplusplus]:https://github.com/GingerPlusPlus
+
+
 <a name="kick-without-name"></a>
 ### Kick-without-Ban:
 
@@ -400,16 +442,6 @@ const bot = new Tgfancy(token, {
 ```
 
 [openshift]:https://openshift.com
-
-<a name="websocket"></a>
-### Fetching updates via WebSocket
-
-You can fetch updates via WebSocket instead of using polling.
-
-**Disabled by default**.
-
-**Feature enable option:** `webSocket` (see [above](#feature-enable))
-If you wish to use custom bridge instead of the default one, pass `{url: "wss://url-of-your-bridge}`
 
 
 ## license:
