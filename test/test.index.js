@@ -13,6 +13,7 @@ const emoji = require("node-emoji");
 const TelegramBot = require("node-telegram-bot-api");
 const request = require("request");
 const should = require("should");
+const ws = require("ws");
 
 
 // own modules
@@ -38,6 +39,19 @@ if (!userid) {
 }
 const timeout = 15 * 1000; // 15 secs
 let client = createClient();
+const update = {
+    "update_id": 666,
+    message: {
+        "message_id": 666,
+        date: Date.now(),
+        chat: {
+            id: 666,
+            type: "private",
+        },
+        text: "Trigger!",
+    },
+};
+let portindex = 9678;
 
 
 // construct the client. This is useful when we need
@@ -194,14 +208,15 @@ describe("Emojification", function() {
 
 
 describe("Openshift Webhook", function() {
-    let ip, port;
+    const ip = "127.0.0.1";
+    const port = portindex++;
 
     before(function() {
         // this is a dummy URL that does NOT even know wtf is happening
         process.env.OPENSHIFT_APP_UUID = 12345;
         process.env.OPENSHIFT_APP_DNS = "http://gmugo.in/owh";
-        process.env.OPENSHIFT_NODEJS_IP = ip = "127.0.0.1";
-        process.env.OPENSHIFT_NODEJS_PORT = port = 9678;
+        process.env.OPENSHIFT_NODEJS_IP = ip;
+        process.env.OPENSHIFT_NODEJS_PORT = port;
         client = createClient({
             polling: true,
             tgfancy: {
@@ -220,18 +235,7 @@ describe("Openshift Webhook", function() {
     function triggerWebhook() {
         request.post({
             url: `http://${ip}:${port}/bot${token}`,
-            body: {
-                "update_id": 666,
-                message: {
-                    "message_id": 666,
-                    date: Date.now(),
-                    chat: {
-                        id: 666,
-                        type: "private",
-                    },
-                    text: "Trigger!",
-                },
-            },
+            body: update,
             json: true,
         }, function(error) {
             should(error).not.be.ok();
@@ -246,6 +250,50 @@ describe("Openshift Webhook", function() {
     });
     it("disables polling", function() {
         should(client.options.polling).not.be.ok();
+    });
+});
+
+
+describe("WebSocket", function() {
+    let wss;
+    const port = portindex++;
+    const url = `ws://127.0.0.1:${port}`;
+    before(function() {
+        wss = new ws.Server({ port });
+        wss.on("connection", function connection(ws) {
+            should(ws.upgradeReq.url).containEql(token);
+            ws.send(JSON.stringify(update));
+        });
+    });
+    after(function(done) {
+        wss.close(done);
+    });
+    it("throws error if polling options are passed", function() {
+        should.throws(function() {
+            new Tgfancy(token, {
+                polling: true,
+                tgfancy: { webSocket: true },
+            });
+        });
+    });
+    it("throws error if webhook options are passed", function() {
+        should.throws(function() {
+            new Tgfancy(token, {
+                webHook: true,
+                tgfancy: { webSocket: true },
+            });
+        });
+    });
+    it("receives updates", function(done) {
+        const bot = new Tgfancy(token, {
+            tgfancy: {
+                webSocket: { url },
+            },
+        });
+        bot.on("message", function(msg) {
+            should(msg).be.an.Object();
+            return done();
+        });
     });
 });
 
