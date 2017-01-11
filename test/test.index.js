@@ -61,7 +61,9 @@ function createClient(options) {
     const opts = _.defaultsDeep({}, options, {
         tgfancy: {
             emojification: true,
-            resolveChatId,
+            chatIdResolution: {
+                resolve: resolveChatId,
+            },
         },
     });
     return new Tgfancy(token, opts);
@@ -315,7 +317,7 @@ describe.skip("Ratelimiting", function() {
         const client = createClient({
             tgfancy: {
                 orderedSending: false,
-                ratelimitingOptions: {
+                ratelimiting: {
                     maxRetries: 1,
                     timeout: 100,
                     notify() {

@@ -52,35 +52,6 @@ constructor.
 
 > Here comes the fanciness
 
-<a name="feature-toggle"></a>
-Most of the features below are **enabled by default**. However, you may
-want to disable some of them. This can be done passing a corresponding
-*feature toggle option* to the constructor. For example, disabling
-[Chat ID Resolution](#chat-id-resolution):
-
-```js
-const bot = new Tgfancy(token, {
-    tgfancy: {
-        chatIdResolution: false, // If 'true', enable. Otherwise, disable!
-    },
-});
-```
-
-See example at `example/feature-toggled.js`.
-
-<a name="feature-enable"></a>
-To enable the rest of the features, you need to set the corresponding
-*feature enable option*. For example, enabling
-[Openshift WebHook](#openshift-webhook):
-
-```js
-const bot = new Tgfancy(token, {
-    tgfancy: {
-        openshiftWebHook: true, // 'true' to enable!
-    },
-});
-```
-
 **tgfancy** adds the following fanciness:
 
 * [Ordered Sending](#ordered-sending)
@@ -93,6 +64,49 @@ const bot = new Tgfancy(token, {
 * [Openshift WebHook](#openshift-webhook)
 
 
+<a name="feature-options"></a>
+### feature options:
+
+Most of the features are **enabled by default**. Such a feature (enabled by
+default) is similar to doing something like:
+
+```js
+const bot = new Tgfancy(token, {
+    tgfancy: {
+        feature: true,  // 'true' to enable!
+    },
+});
+```
+
+Such a feature can be **disabled** like so:
+
+```js
+const bot = new Tgfancy(token, {
+    tgfancy: {
+        feature: false, // 'false' to disable!
+    },
+});
+```
+
+If a feature allows more options, you may pass an object, instead of `true`,
+like:
+
+```js
+const bot = new Tgfancy(token, {
+    tgfancy: {
+        feature: {          // feature will be enabled!
+            key: "value",   // feature option
+        },
+    },
+});
+```
+
+See example at `example/feature-toggled.js`.
+
+
+---
+
+
 <a name="ordered-sending"></a>
 ### Ordered sending:
 
@@ -100,7 +114,7 @@ Using an internal queue, we can ensure messages are sent, *to a specific
 chat*, in order without having to implement the
 wait-for-response-to-send-next-message logic.
 
-**Feature toggle option:** `orderedSending` (see [above](#feature-toggle))
+**Feature option:** `orderedSending` (see [above](#feature-options))
 
 For example,
 
@@ -112,14 +126,26 @@ bot.sendMessage(chatId, "second message");
 With **tgfancy**, you are guaranteed that `"first message"` will be sent
 **before** `"second message"`.
 
-Fancied functions: `["sendMessage", "sendPhoto", "sendAudio",
-"sendDocument", "sendSticker", "sendVideo", "sendVoice",
-"sendLocation", "sendVenue", "sendGame"]`
+Fancied functions: `[
+    "sendAudio",
+    "sendDocument",
+    "sendGame",
+    "sendLocation",
+    "sendMessage",
+    "sendPhoto",
+    "sendSticker",
+    "sendVenue",
+    "sendVideo",
+    "sendVoice",
+]`
 
 An earlier discussion on this feature can be found [here][docs-queue-1].
 See example at `example/queued-up.js`.
 
 [docs-queue-1]:https://github.com/yagop/node-telegram-bot-api/issues/192
+
+
+---
 
 
 <a name="text-paging"></a>
@@ -132,7 +158,7 @@ one after the other.
 
 The page number, for example `[01/10]`, is prefixed to the text.
 
-**Feature toggle option:** `textPaging` (see [above](#feature-toggle))
+**Feature option:** `textPaging` (see [above](#feature-options))
 
 For example,
 
@@ -156,6 +182,9 @@ than 99 parts.
 See example at `example/paging-text.js`.
 
 
+---
+
+
 <a name="chat-id-resolution"></a>
 ### chat ID resolution:
 
@@ -163,7 +192,7 @@ Usernames are automatically resolved to the target's corresponding
 unique identifier. By default, this resolution uses the
 [PWRTelegram API][pwr].
 
-**Feature toggle option:** `chatIdResolution` (see [above](#feature-toggle))
+**Feature option:** `chatIdResolution` (see [above](#feature-options))
 
 For example,
 
@@ -173,28 +202,48 @@ bot.sendMessage("@gochomugo", "Message sent using username");
 
 However, it is possible to define a custom function used to perform
 these resolutions. The function **must** have the signature,
-`resolveChatId(token, chatId, callback)`. The `callback` **must**
+`resolve(token, chatId, callback)`. The `callback` **must**
 have the signature `callback(error, target)`, where `target` is
 an object representing the target entity.
 
 ```js
 const bot = new Tgfancy(token, {
     tgfancy: {
-        resolveChatId(token, chatId, callback) {
-            // perform the resolution
-            // ... snip ...
-            return callback(null, user);
+        chatIdResolution: {
+            resolve(token, chatId, callback) {
+                // perform the resolution
+                // ... snip ...
+                return callback(null, user);
+            },
         },
     },
 });
 ```
 
-Fancied functions: `["sendMessage", "forwardMessage",
-"sendPhoto", "sendAudio", "sendDocument", "sendSticker",
-"sendVideo", "sendVoice", "sendLocation", "sendVenue",
-"sendGame", "sendChatAction", "kickChatMember",
-"unbanChatMember", "getChat", "getChatAdministrators",
-"getChatMembersCount", "getChatMember", "leaveChat"]`
+Fancied functions: `[
+    "forwardMessage",
+    "getChat",
+    "getChatAdministrators",
+    "getChatMember",
+    "getChatMembersCount",
+    "getUserProfilePhotos",
+    "kickChatMember",
+    "leaveChat",
+    "sendAudio",
+    "sendChatAction",
+    "sendContact",
+    "sendDocument",
+    "sendGame",
+    "sendLocation",
+    "sendMessage",
+    "sendPhoto",
+    "sendSticker",
+    "sendVenue",
+    "sendVideo",
+    "sendVoice",
+    "setGameScore",
+    "unbanChatMember",
+]`
 
 See example at `example/resolve-chatid.js`.
 
@@ -205,6 +254,9 @@ up, when using this resolution.
 [pwr]:http://pwrtelegram.xyz/
 
 
+---
+
+
 <a name="ratelimiting"></a>
 ### Rate-Limiting:
 
@@ -213,7 +265,7 @@ will be retried after some time (1 minute by default). The
 request will be retried for a number of times, until it succeeds or
 the maximum number of retries has been exceeded.
 
-**Feature toggle option:** `ratelimiting` (see [above](#feature-toggle))
+**Feature option:** `ratelimiting` (see [above](#feature-options))
 
 For example,
 
@@ -221,7 +273,7 @@ For example,
 const bot = new Tgfancy(token, {
     tgfancy: {
         // options for this fanciness
-        ratelimitingOptions: {
+        ratelimiting: {
             // number of times to retry a request before giving up
             maxRetries: 10,         // default: 10
             // number of milliseconds to wait before retrying the
@@ -234,7 +286,7 @@ const bot = new Tgfancy(token, {
             notify(methodName, ...args) {   // default: undefined
                 // 'methodName' is the name of the invoked method
                 // 'args' is an array of the arguments passed to the method
-                // do somethind useful here
+                // do something useful here
                 // ...snip...
             },
         },
@@ -284,6 +336,9 @@ See example at `example/ratelimited.js`.
 [docs-ratelimiting-1]:https://github.com/GochoMugo/tgfancy/issues/4
 
 
+---
+
+
 <a name="emojification"></a>
 ### Emojification:
 
@@ -292,11 +347,16 @@ automatically with their corresponding Unicode values. By default,
 uses the [node-emoji][emoji] library (Go give a star!).
 **Disabled by default**.
 
-**Feature enable option:** `emojification` (see [above](#feature-enable))
+**Feature option:** `emojification` (see [above](#feature-options))
 
 For example,
 
 ```js
+const bot = new Tgfancy(token, {
+    tgfancy: {
+        emojification: true,
+    },
+});
 bot.sendMessage(chatId, "Message text with :heart: emoji")
     .then(function(msg) {
         // 'msg' is the Message sent to the chat
@@ -311,11 +371,12 @@ emojification. The function **must** have the signature,
 ```js
 const bot = new Tgfancy(token, {
     tgfancy: {
-        emojification: true,
-        emojify(text) {
-            // emojify here
-            // ... snip ...
-            return emojifiedText;
+        emojification: {
+            emojify(text) {
+                // emojify here
+                // ... snip ...
+                return emojifiedText;
+            },
         },
     },
 });
@@ -328,6 +389,9 @@ See example at `example/emojified.js`.
 [emoji]:https://github.com/omnidan/node-emoji#readme
 
 
+---
+
+
 <a name="websocket-updates"></a>
 ### Fetching Updates via WebSocket:
 
@@ -336,7 +400,7 @@ for fetching your updates: **Webocket**. While currently it is **not**
 officially supported by Telegram, we have a *bridge* up and running
 that you can connect to for this purpose. **Disabled by default**.
 
-**Feature enable option:** `webSocket` (see [above](#feature-enable))
+**Feature option:** `webSocket` (see [above](#feature-options))
 
 For example,
 
@@ -370,6 +434,9 @@ See example at `example/web-socket.js`.
 [gingerplusplus]:https://github.com/GingerPlusPlus
 
 
+---
+
+
 <a name="kick-without-name"></a>
 ### Kick-without-Ban:
 
@@ -383,7 +450,7 @@ Tgfancy executes the API method `unbanChatMember()` right after
 kicking the chat member, effectively kicking the user, without
 banning them.
 
-**Feature toggle option:** `kickWithoutBan` (see [above](#feature-toggle))
+**Feature option:** `kickWithoutBan` (see [above](#feature-options))
 
 For example,
 
@@ -397,6 +464,9 @@ bot.kickChatMember(chatId, userId, false);
 See example at `example/kick-only.js`.
 
 
+---
+
+
 <a name="openshift-webhook"></a>
 ### Openshift WebHook:
 
@@ -404,7 +474,7 @@ It is easier to set up webhook for your bot on [Openshift][openshift].
 Enabling this feature allows **automatic detection if running on Openshift**
 and setting up web-hook for the bot instance.
 
-**Feature enable option:** `openshiftWebHook` (see [above](#feature-enable))
+**Feature option:** `openshiftWebHook` (see [above](#feature-options))
 
 For example,
 
@@ -442,6 +512,9 @@ const bot = new Tgfancy(token, {
 ```
 
 [openshift]:https://openshift.com
+
+
+---
 
 
 ## license:

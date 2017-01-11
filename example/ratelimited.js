@@ -15,7 +15,7 @@ const state = require("./init");
 // module variables
 const bot = new Tgfancy(state.token, {
     tgfancy: {
-        ratelimitingOptions: {
+        ratelimiting: {
             notify(methodName) {
                 console.log("Handling rate-limiting error from %s", methodName);
                 console.log("Exiting without waiting...");

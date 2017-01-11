@@ -10,6 +10,10 @@ Added:
 
 * New fanciness: websocket updates
 
+Changed:
+
+* Redesign feature options
+
 
 ## 0.7.0 - 2016-12-30
 
