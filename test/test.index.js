@@ -264,27 +264,16 @@ describe("WebSocket", function() {
         wss = new ws.Server({ port });
         wss.on("connection", function connection(ws) {
             should(ws.upgradeReq.url).containEql(token);
-            ws.send(JSON.stringify(update));
+            let interval = setInterval(function() {
+                ws.send(JSON.stringify(update));
+            }, 1000);
+            ws.on("close", function() {
+                clearInterval(interval);
+            });
         });
     });
     after(function(done) {
         wss.close(done);
-    });
-    it("throws error if polling options are passed", function() {
-        should.throws(function() {
-            new Tgfancy(token, {
-                polling: true,
-                tgfancy: { webSocket: true },
-            });
-        });
-    });
-    it("throws error if webhook options are passed", function() {
-        should.throws(function() {
-            new Tgfancy(token, {
-                webHook: true,
-                tgfancy: { webSocket: true },
-            });
-        });
     });
     it("receives updates", function(done) {
         const bot = new Tgfancy(token, {
@@ -292,9 +281,64 @@ describe("WebSocket", function() {
                 webSocket: { url },
             },
         });
-        bot.on("message", function(msg) {
+        bot.once("message", function(msg) {
             should(msg).be.an.Object();
             return done();
+        });
+    });
+
+    describe("#openWebSocket", function() {
+        it("opens the websocket", function(done) {
+            const bot = new Tgfancy(token, {
+                tgfancy: {
+                    webSocket: { url, autoOpen: false },
+                },
+            });
+            bot.once("message", function() {
+                bot.closeWebSocket();
+                return done();
+            });
+            bot.openWebSocket();
+        });
+        it("returns error if polling is being used already", function() {
+            this.timeout(10 * 1000);
+            const bot = new Tgfancy(token, { polling: { timeout: 0, autoStart: false } });
+            return bot.startPolling().then(function() {
+                return bot.openWebSocket().catch(function(err) {
+                    should(err.message).containEql("mutually exclusive");
+                    return bot.stopPolling();
+                });
+            });
+        });
+        it("returns error if webhook is being used already", function() {
+            const bot = new Tgfancy(token);
+            return bot.openWebHook().then(function() {
+                return bot.openWebSocket().catch(function(err) {
+                    should(err.message).containEql("mutually exclusive");
+                    return bot.closeWebHook();
+                });
+            });
+        });
+    });
+    describe("#closeWebSocket", function() {
+        it("closes websocket", function(done) {
+            this.timeout(10 * 1000);
+            const bot = new Tgfancy(token, {
+                tgfancy: { webSocket: { url } },
+            });
+            let messages = 0;
+            bot.on("message", function() { messages++; });
+            bot.once("message", function() {
+                return bot.closeWebSocket()
+                    .then(function() {
+                        messages = 0;
+                        setTimeout(function() {
+                            should.equal(messages, 0);
+                            return done();
+                        }, 5000);
+                    })
+                    .catch(function(err) { should(err).not.be.ok(); });
+            });
         });
     });
 });
