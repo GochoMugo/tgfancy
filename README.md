@@ -63,9 +63,9 @@ constructor.
 * [Kick-without-Ban](#kick-without-ban)
 * [Openshift WebHook](#openshift-webhook)
 
-Have a look at the [API Reference][api].
+Have a look at the [API Reference][doc-api].
 
-[api]:https://github.com/GochoMugo/tgfancy/tree/master/doc/api.md
+[doc-api]:https://github.com/GochoMugo/tgfancy/tree/master/doc/api.md
 
 
 <a name="feature-options"></a>
