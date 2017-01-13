@@ -63,6 +63,10 @@ constructor.
 * [Kick-without-Ban](#kick-without-ban)
 * [Openshift WebHook](#openshift-webhook)
 
+Have a look at the [API Reference][api].
+
+[api]:https://github.com/GochoMugo/tgfancy/tree/master/doc/api.md
+
 
 <a name="feature-options"></a>
 ### feature options:
@@ -424,6 +428,8 @@ const bot = new Tgfancy(token, {
         webSocket: {
             // specify a custom URL for a different bridge
             url: "wss://telegram-websocket-bridge-qalwkrjzzs.now.sh",
+            // immediately open the websocket
+            autoOpen: true,
         },
     },
 });

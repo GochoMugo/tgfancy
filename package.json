@@ -4,6 +4,7 @@
   "description": "A Fancy, Higher-Level Wrapper for Telegram Bot API",
   "main": "lib/index.js",
   "scripts": {
+    "docs": "jsdoc2md --files lib/client.js --template doc/api.hbs > doc/api.md",
     "test": "grunt test",
     "test-coverage": "istanbul cover _mocha --report lcovonly -- -R spec test/test.*.js"
   },
@@ -41,6 +42,7 @@
     "grunt-eslint": "^19.0.0",
     "grunt-mocha-test": "^0.13.2",
     "istanbul": "^0.4.5",
+    "jsdoc-to-markdown": "^2.0.1",
     "load-grunt-tasks": "^3.5.2",
     "mocha": "^3.2.0",
     "mocha-lcov-reporter": "^1.2.0",
