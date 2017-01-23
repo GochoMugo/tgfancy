@@ -6,6 +6,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+
+
+
+## 0.8.0 - 2017-01-21
+
 Added:
 
 * New fanciness: websocket updates
