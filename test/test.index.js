@@ -210,13 +210,14 @@ describe("Emojification", function() {
 
 
 describe("Openshift Webhook", function() {
+    this.timeout(timeout);
     const ip = "127.0.0.1";
     const port = portindex++;
 
     before(function() {
         // this is a dummy URL that does NOT even know wtf is happening
         process.env.OPENSHIFT_APP_UUID = 12345;
-        process.env.OPENSHIFT_APP_DNS = "http://gmugo.in/owh";
+        process.env.OPENSHIFT_APP_DNS = "https://gmugo.in/owh";
         process.env.OPENSHIFT_NODEJS_IP = ip;
         process.env.OPENSHIFT_NODEJS_PORT = port;
         client = createClient({
@@ -228,11 +229,14 @@ describe("Openshift Webhook", function() {
         });
     });
     after(function() {
+        this.timeout();
         delete process.env.OPENSHIFT_APP_UUID;
         delete process.env.OPENSHIFT_APP_DNS;
         delete process.env.OPENSHIFT_NODEJS_IP;
         delete process.env.OPENSHIFT_NODEJS_PORT;
-        client = createClient();
+        return client.deleteWebHook().then(function() {
+            client = createClient();
+        });
     });
     function triggerWebhook() {
         request.post({
