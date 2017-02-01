@@ -264,7 +264,7 @@ describe("WebSocket", function() {
     let wss;
     const port = portindex++;
     const url = `ws://127.0.0.1:${port}`;
-    before(function() {
+    before(function(done) {
         wss = new ws.Server({ port });
         wss.on("connection", function connection(ws) {
             should(ws.upgradeReq.url).containEql(token);
@@ -275,6 +275,7 @@ describe("WebSocket", function() {
                 clearInterval(interval);
             });
         });
+        wss.on("listening", done);
     });
     after(function(done) {
         wss.close(done);
@@ -342,6 +343,22 @@ describe("WebSocket", function() {
                         }, 5000);
                     })
                     .catch(function(err) { should(err).not.be.ok(); });
+            });
+        });
+    });
+    describe("#hasOpenWebsocket", function() {
+        const bot = new Tgfancy(token, {
+            tgfancy: { webSocket: { url, autoOpen: false } },
+        });
+        before(function() {
+            return bot.openWebSocket();
+        });
+        it("returns 'true' if websocket is open", function() {
+            should(bot.hasOpenWebSocket()).eql(true);
+        });
+        it("returns 'false' if websocket is closed", function() {
+            return bot.closeWebSocket().then(() => {
+                should(bot.hasOpenWebSocket()).eql(false);
             });
         });
     });

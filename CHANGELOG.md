@@ -6,7 +6,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+Added:
 
+* Added method `Tgfancy#hasOpenWebSocket()`
 
 
 ## 0.8.0 - 2017-01-21

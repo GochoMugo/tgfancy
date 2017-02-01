@@ -11,6 +11,7 @@ Tgfancy
     * [new Tgfancy(token, [options])](#new_Tgfancy_new)
     * [.openWebSocket()](#Tgfancy+openWebSocket) ⇒ <code>Promise</code>
     * [.closeWebSocket()](#Tgfancy+closeWebSocket) ⇒ <code>Promise</code>
+    * [.hasOpenWebSocket()](#Tgfancy+hasOpenWebSocket) ⇒ <code>Boolean</code>
     * [.kickChatMember(chatId, userId, [ban])](#Tgfancy+kickChatMember) ⇒ <code>Promise</code>
 
 <a name="new_Tgfancy_new"></a>
@@ -52,6 +53,12 @@ Multiple invocations do nothing if websocket is already open.
 ### tgfancy.closeWebSocket() ⇒ <code>Promise</code>
 Close the websocket.
 Multiple invocations do nothing if websocket is already closed.
+
+**Kind**: instance method of <code>[Tgfancy](#Tgfancy)</code>  
+<a name="Tgfancy+hasOpenWebSocket"></a>
+
+### tgfancy.hasOpenWebSocket() ⇒ <code>Boolean</code>
+Return `true` if we have an open websocket. Otherwise, `false`.
 
 **Kind**: instance method of <code>[Tgfancy](#Tgfancy)</code>  
 <a name="Tgfancy+kickChatMember"></a>
