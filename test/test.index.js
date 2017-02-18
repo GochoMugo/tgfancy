@@ -13,7 +13,6 @@ const emoji = require("node-emoji");
 const TelegramBot = require("node-telegram-bot-api");
 const request = require("request");
 const should = require("should");
-const ws = require("ws");
 
 
 // own modules
@@ -261,6 +260,12 @@ describe("Openshift Webhook", function() {
 
 
 describe("WebSocket", function() {
+    const payload = {
+        path: "/",
+        method: "POST",
+        query: {},
+        body: update,
+    };
     let wss;
     const port = portindex++;
     const url = `ws://127.0.0.1:${port}`;
@@ -283,20 +288,21 @@ describe("WebSocket", function() {
     it("receives updates", function(done) {
         const bot = new Tgfancy(token, {
             tgfancy: {
-                webSocket: { url },
+                webSocket: true,
             },
         });
         bot.once("message", function(msg) {
             should(msg).be.an.Object();
             return done();
         });
+        bot.ws.emit("message", payload);
     });
 
     describe("#openWebSocket", function() {
         it("opens the websocket", function(done) {
             const bot = new Tgfancy(token, {
                 tgfancy: {
-                    webSocket: { url, autoOpen: false },
+                    webSocket: { autoOpen: false },
                 },
             });
             bot.once("message", function() {

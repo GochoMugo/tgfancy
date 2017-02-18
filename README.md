@@ -416,18 +416,12 @@ const bot = new Tgfancy(token, {
 });
 ```
 
-The current default bridge is at
-*wss://telegram-websocket-bridge-qalwkrjzzs.now.sh* and is being run by
-[@GingerPlusPlus][gingerplusplus].
-
 You can specify more options as so:
 
 ```js
 const bot = new Tgfancy(token, {
     tgfancy: {
         webSocket: {
-            // specify a custom URL for a different bridge
-            url: "wss://telegram-websocket-bridge-qalwkrjzzs.now.sh",
             // immediately open the websocket
             autoOpen: true,
         },
@@ -435,9 +429,14 @@ const bot = new Tgfancy(token, {
 });
 ```
 
+Before [Plank][plank] was available, we relied on the bridge at
+*https://telegram-websocket-bridge-qalwkrjzzs.now.sh*, which is being run by
+[@GingerPlusPlus][gingerplusplus].
+
 See example at `example/web-socket.js`.
 
 [gingerplusplus]:https://github.com/GingerPlusPlus
+[plank]:https://plank.forfuture.tech
 
 
 ---
