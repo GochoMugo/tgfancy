@@ -8,6 +8,14 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 
 
+## 0.10.0 - 2017-05-06
+
+Changed:
+
+* Rate-limiting logic updated to use update NTBA API, i.e. `error.response`
+  object.
+* Dependencies updated
+
 
 ## 0.9.0 - 2017-02-16
 
