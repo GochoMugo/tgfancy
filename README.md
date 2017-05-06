@@ -265,9 +265,10 @@ up, when using this resolution.
 ### Rate-Limiting:
 
 Any request that encounters a `429` error i.e. rate-limiting error
-will be retried after some time (1 minute by default). The
-request will be retried for a number of times, until it succeeds or
-the maximum number of retries has been exceeded.
+will be retried after some time (as advised by the Telegram API or
+1 minute by default).
+The request will be retried for a number of times, until it succeeds or
+the maximum number of retries has been reached
 
 **Feature option:** `ratelimiting` (see [above](#feature-options))
 
@@ -281,7 +282,7 @@ const bot = new Tgfancy(token, {
             // number of times to retry a request before giving up
             maxRetries: 10,         // default: 10
             // number of milliseconds to wait before retrying the
-            // request
+            // request (if API does not advise us otherwise!)
             timeout: 1000 * 60,     // default: 60000 (1 minute)
             // (optional) function invoked whenever this fanciness handles
             // any ratelimiting error.
