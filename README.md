@@ -401,7 +401,7 @@ See example at `example/emojified.js`.
 ### Fetching Updates via WebSocket:
 
 In addition to polling and web-hooks, this introduces another mechanism
-for fetching your updates: **Webocket**. While currently it is **not**
+for fetching your updates: **WebSocket**. While currently it is **not**
 officially supported by Telegram, we have a *bridge* up and running
 that you can connect to for this purpose. **Disabled by default**.
 
