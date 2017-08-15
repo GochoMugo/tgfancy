@@ -6,6 +6,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+
+
+
+## 0.11.0 - 2017-08-15
+
 Added:
 
 * Support NTBA 0.28.0
