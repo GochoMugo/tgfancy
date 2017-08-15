@@ -93,31 +93,40 @@ describe("module.exports", function() {
 });
 
 
-describe("sanity check dictates", function() {
+describe("sanity check: alphabetically-ordered, methods/functions", function() {
+    function areMethods(fns) {
+        fns.forEach(function(fn) {
+            should(Tgfancy.prototype[fn]).be.a.Function();
+        });
+    }
     function checkOrder(fns) {
         const sorted = fns.slice().sort();
         for (let i = 0; i < sorted.length; i++) {
             should(sorted[i]).eql(fns[i]);
         }
     }
-    it("emojifiedFns are alphabetically ordered", function() {
+    it("emojifiedFns", function() {
         const fns = Tgfancy.internals.emojifiedFns.map(function(fn) {
             return fn[0];
         });
+        areMethods(fns);
         checkOrder(fns);
     });
-    it("queuedSendFns are alphabetically ordered", function() {
+    it("queuedSendFns", function() {
         const fns = Tgfancy.internals.queuedSendFns;
+        areMethods(fns);
         checkOrder(fns);
     });
-    it("ratelimitedFns are alphabetically ordered", function() {
+    it("ratelimitedFns", function() {
         const fns = Tgfancy.internals.ratelimitedFns;
+        areMethods(fns);
         checkOrder(fns);
     });
-    it("resolveChatIdFns are alphabetically ordered", function() {
+    it("resolveChatIdFns", function() {
         const fns = Tgfancy.internals.resolveChatIdFns.map(function(fn) {
             return fn[0];
         });
+        areMethods(fns);
         checkOrder(fns);
     });
 });
