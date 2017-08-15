@@ -266,8 +266,8 @@ describe("WebSocket", function() {
     const url = `ws://127.0.0.1:${port}`;
     before(function(done) {
         wss = new ws.Server({ port });
-        wss.on("connection", function connection(ws) {
-            should(ws.upgradeReq.url).containEql(token);
+        wss.on("connection", function connection(ws, upgradeReq) {
+            should(upgradeReq.url).containEql(token);
             let interval = setInterval(function() {
                 ws.send(JSON.stringify(update));
             }, 1000);

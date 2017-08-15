@@ -9,6 +9,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 Added:
 
 * Support NTBA 0.28.0
+* Dependencies updated
 
 
 ## 0.10.0 - 2017-05-06
