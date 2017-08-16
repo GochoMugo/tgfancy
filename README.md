@@ -269,7 +269,19 @@ See example at `example/resolve-chatid.js`.
 is queued. Consider this, if order of messages gets messed
 up, when using this resolution.
 
+If you want to manually resolve a chat ID, take a look at
+[Tgfancy#resolveChatId][tgfancy-resolvechatid]. For example,
+
+```js
+bot.resolveChatId(chatId)
+    .then(function(result) {
+        console.log(result);
+    });
+```
+
+
 [pwr]:http://pwrtelegram.xyz/
+[tgfancy-resolvechatid]:doc/api.md#Tgfancy+resolveChatId
 
 
 ---

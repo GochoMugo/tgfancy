@@ -9,6 +9,7 @@ Tgfancy
 
 * [Tgfancy](#Tgfancy)
     * [new Tgfancy(token, [options])](#new_Tgfancy_new)
+    * [.resolveChatId(chatId)](#Tgfancy+resolveChatId) ⇒ <code>Promise</code>
     * [.openWebSocket()](#Tgfancy+openWebSocket) ⇒ <code>Promise</code>
     * [.closeWebSocket()](#Tgfancy+closeWebSocket) ⇒ <code>Promise</code>
     * [.hasOpenWebSocket()](#Tgfancy+hasOpenWebSocket) ⇒ <code>Boolean</code>
@@ -40,6 +41,18 @@ Construct a new client.
 | [options.webSocket] | <code>Boolean</code> &#124; <code>Object</code> |  | 
 | [options.webSocket.url] | <code>String</code> |  | 
 | [options.webSocket.autoOpen] | <code>Boolean</code> | <code>true</code> | 
+
+<a name="Tgfancy+resolveChatId"></a>
+
+### tgfancy.resolveChatId(chatId) ⇒ <code>Promise</code>
+Resolve chat ID to a User or Chat object.
+
+**Kind**: instance method of <code>[Tgfancy](#Tgfancy)</code>  
+**See**: https://github.com/kamikazechaser/tg-resolve  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| chatId | <code>String</code> | ID of chat |
 
 <a name="Tgfancy+openWebSocket"></a>
 

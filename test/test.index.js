@@ -193,9 +193,14 @@ describe("Queued-methods (using Tgfancy#sendMessage())", function() {
 });
 
 
-describe("Chat-ID Resolution (using Tgfancy#sendMessage())", function() {
+describe("Chat-ID Resolution", function() {
     this.timeout(timeout);
-    it("resolves username", function() {
+    it("resolves username (using Tgfancy#resolveChatId())", function() {
+        return client.resolveChatId(username).then(function(result) {
+            should(result.id).eql(userid);
+        });
+    });
+    it("resolves username (using Tgfancy#sendMessage())", function() {
         return client.sendMessage(username, "message")
             .then(function(message) {
                 should(message.chat.id).eql(userid);
