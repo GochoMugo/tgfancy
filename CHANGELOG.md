@@ -6,6 +6,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+
+
+
+## 0.12.0 - 2017-10-22
+
 Added:
 
 * Added method `Tgfancy#resolveChatId()`
