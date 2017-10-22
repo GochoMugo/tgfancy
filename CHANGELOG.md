@@ -9,6 +9,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 Added:
 
 * Added method `Tgfancy#resolveChatId()`
+* Add support for **node-telegram-bot-api@v0.29.0**
 
 
 ## 0.11.0 - 2017-08-15

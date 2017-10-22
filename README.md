@@ -326,12 +326,15 @@ const bot = new Tgfancy(token, {
 ```
 
 Fancied functions: `[
+    "addStickerToSet",
     "answerCallbackQuery",
     "answerInlineQuery",
     "answerPreCheckoutQuery",
     "answerShippingQuery",
+    "createNewStickerSet",
     "deleteChatPhoto",
     "deleteMessage",
+    "deleteStickerFromSet",
     "downloadFile",
     "editMessageCaption",
     "editMessageReplyMarkup",
@@ -345,6 +348,7 @@ Fancied functions: `[
     "getFile",
     "getFileLink",
     "getGameHighScores",
+    "getStickerSet",
     "getUpdates",
     "getUserProfilePhotos",
     "kickChatMember",
@@ -370,9 +374,11 @@ Fancied functions: `[
     "setChatPhoto",
     "setChatTitle",
     "setGameScore",
+    "setStickerPositionInSet",
     "setWebHook",
     "unbanChatMember",
     "unpinChatMessage",
+    "uploadStickerFile",
 ]`
 
 An earlier discussion on this feature can be found [here][docs-ratelimiting-1].
