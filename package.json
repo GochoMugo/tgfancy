@@ -6,7 +6,7 @@
   "scripts": {
     "doc": "jsdoc2md --files lib/client.js --template doc/api.hbs > doc/api.md",
     "test": "grunt test",
-    "test-coverage": "NODE_ENV=testing istanbul cover _mocha --report lcovonly -- -R spec test/test.*.js"
+    "test-coverage": "NODE_ENV=testing istanbul cover _mocha --report lcovonly -- --exit -R spec test/test.*.js"
   },
   "repository": {
     "type": "git",
