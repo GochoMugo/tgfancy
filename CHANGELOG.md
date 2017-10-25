@@ -6,7 +6,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+Added:
 
+* Add option `ratelimiting.maxBackoff`
 
 
 ## 0.12.0 - 2017-10-22

@@ -22,25 +22,26 @@ Construct a new client.
 'token' and 'options' are passed to TelegramBot.
 
 
-| Param | Type | Default |
-| --- | --- | --- |
-| token | <code>String</code> |  | 
-| [options] | <code>Options</code> |  | 
-| [options.chatIdResolution] | <code>Boolean</code> &#124; <code>Object</code> | <code>true</code> | 
-| [options.chatIdResolution.resolve] | <code>function</code> |  | 
-| [options.emojification] | <code>Boolean</code> &#124; <code>Object</code> |  | 
-| [options.emojify] | <code>function</code> |  | 
-| [options.kickWithoutBan] | <code>Boolean</code> | <code>true</code> | 
-| [options.openshiftWebHook] | <code>Boolean</code> |  | 
-| [options.orderedSending] | <code>Boolean</code> | <code>true</code> | 
-| [options.ratelimiting] | <code>Boolean</code> &#124; <code>Object</code> | <code>true</code> | 
-| [options.ratelimiting.maxRetries] | <code>Number</code> |  | 
-| [options.ratelimiting.timeout] | <code>Number</code> |  | 
-| [options.ratelimiting.notify] | <code>function</code> |  | 
-| [options.textPaging] | <code>Boolean</code> | <code>true</code> | 
-| [options.webSocket] | <code>Boolean</code> &#124; <code>Object</code> |  | 
-| [options.webSocket.url] | <code>String</code> |  | 
-| [options.webSocket.autoOpen] | <code>Boolean</code> | <code>true</code> | 
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| token | <code>String</code> |  |  |
+| [options] | <code>Options</code> |  |  |
+| [options.chatIdResolution] | <code>Boolean</code> &#124; <code>Object</code> | <code>true</code> |  |
+| [options.chatIdResolution.resolve] | <code>function</code> |  |  |
+| [options.emojification] | <code>Boolean</code> &#124; <code>Object</code> |  |  |
+| [options.emojify] | <code>function</code> |  |  |
+| [options.kickWithoutBan] | <code>Boolean</code> | <code>true</code> |  |
+| [options.openshiftWebHook] | <code>Boolean</code> |  |  |
+| [options.orderedSending] | <code>Boolean</code> | <code>true</code> |  |
+| [options.ratelimiting] | <code>Boolean</code> &#124; <code>Object</code> | <code>true</code> |  |
+| [options.ratelimiting.maxRetries] | <code>Number</code> |  |  |
+| [options.ratelimiting.timeout] | <code>Number</code> |  |  |
+| [options.ratelimiting.notify] | <code>function</code> |  |  |
+| [options.ratelimiting.maxBackoff] | <code>Number</code> |  | Maximum number of ms to be in back-off mode |
+| [options.textPaging] | <code>Boolean</code> | <code>true</code> |  |
+| [options.webSocket] | <code>Boolean</code> &#124; <code>Object</code> |  |  |
+| [options.webSocket.url] | <code>String</code> |  |  |
+| [options.webSocket.autoOpen] | <code>Boolean</code> | <code>true</code> |  |
 
 <a name="Tgfancy+resolveChatId"></a>
 

@@ -320,6 +320,12 @@ const bot = new Tgfancy(token, {
                 // do something useful here
                 // ...snip...
             },
+            // maximum number of milliseconds to allow for waiting
+            // in backoff-mode before retrying the request.
+            // This is important to avoid situations where the server
+            // can cause lengthy timeouts e.g. too long of a wait-time
+            // that is causes adverse effects on efficiency and performance.
+            maxBackoff: 1000 * 60 * 5,      // default: 5 minutes
         },
     },
 });
