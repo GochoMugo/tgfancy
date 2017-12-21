@@ -10,6 +10,7 @@ Added:
 
 * Add option `ratelimiting.maxBackoff`
 * Add support for **node-telegram-bot-api@v0.30.0**
+* Dependencies updated
 
 
 ## 0.12.0 - 2017-10-22
