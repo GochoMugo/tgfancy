@@ -11,7 +11,6 @@
 const _ = require("lodash");
 const emoji = require("node-emoji");
 const TelegramBot = require("node-telegram-bot-api");
-const request = require("request");
 const should = require("should");
 const ws = require("ws");
 
@@ -55,7 +54,7 @@ let portindex = 9678;
 
 
 // construct the client. This is useful when we need
-// to re-create the client, particularly when testing openshift webhook
+// to re-create the client.
 // This allows us to re-use one token for all of our tests.
 function createClient(options) {
     const opts = _.defaultsDeep({}, options, {
@@ -219,57 +218,6 @@ describe("Emojification", function() {
                 should(msg.text).containEql(emojicode);
                 should(msg.text).not.containEql(emojistring);
             });
-    });
-});
-
-
-describe("Openshift Webhook", function() {
-    this.timeout(timeout);
-    const ip = "127.0.0.1";
-    const port = portindex++;
-
-    before(function() {
-        // this is a dummy URL that does NOT even know wtf is happening
-        process.env.OPENSHIFT_APP_UUID = 12345;
-        process.env.OPENSHIFT_APP_DNS = "https://gmugo.in/owh";
-        process.env.OPENSHIFT_NODEJS_IP = ip;
-        process.env.OPENSHIFT_NODEJS_PORT = port;
-        client = createClient({
-            polling: true,
-            tgfancy: {
-                // enable the openshift-webhook fanciness
-                openshiftWebHook: true,
-            },
-        });
-    });
-    after(function() {
-        this.timeout();
-        delete process.env.OPENSHIFT_APP_UUID;
-        delete process.env.OPENSHIFT_APP_DNS;
-        delete process.env.OPENSHIFT_NODEJS_IP;
-        delete process.env.OPENSHIFT_NODEJS_PORT;
-        return client.deleteWebHook().then(function() {
-            client = createClient();
-        });
-    });
-    function triggerWebhook() {
-        request.post({
-            url: `http://${ip}:${port}/bot${token}`,
-            body: update,
-            json: true,
-        }, function(error) {
-            should(error).not.be.ok();
-        });
-    }
-
-    it("receives message", function(done) {
-        client.once("message", function() {
-            return done();
-        });
-        process.nextTick(triggerWebhook);
-    });
-    it("disables polling", function() {
-        should(client.options.polling).not.be.ok();
     });
 });
 
