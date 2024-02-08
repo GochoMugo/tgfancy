@@ -61,7 +61,6 @@ constructor.
 * [Emojification](#emojification)
 * [Fetching Updates via WebSocket](#websocket-updates)
 * [Kick-without-Ban](#kick-without-ban)
-* [Openshift WebHook](#openshift-webhook)
 
 Have a look at the [API Reference][doc-api].
 
@@ -529,56 +528,6 @@ bot.kickChatMember(chatId, userId, false);
 ```
 
 See example at `example/kick-only.js`.
-
-
----
-
-
-<a name="openshift-webhook"></a>
-### Openshift WebHook:
-
-It is easier to set up webhook for your bot on [Openshift][openshift].
-Enabling this feature allows **automatic detection if running on Openshift**
-and setting up web-hook for the bot instance.
-
-**Feature option:** `openshiftWebHook` (see [above](#feature-options))
-
-For example,
-
-```js
-const bot = new Tgfancy(token, {
-    tgfancy: {
-        openshiftWebHook: true, // enable this feature
-    },
-});
-```
-
-Note that **polling and fetching updates via WebSocket are automatically disabled** if the web-hook is set.
-This allows you to use polling or WebSocket locally, but use a web-hook on Openshift.
-For example,
-
-```js
-const bot = new Tgfancy(token, {
-    polling: true, // use polling unless disabled by Openshift-WebHook feature
-    tgfancy: {
-        openshiftWebHook: true,
-    },
-});
-```
-
-You may also define **default web-hook parameters** to be used,
-if the bot is **not** running on Openshift. For example,
-
-```js
-const bot = new Tgfancy(token, {
-    webHook: { /* your parameters here */ }, // used if NOT on Openshift
-    tgfancy: {
-        openshiftWebHook: true,
-    },
-});
-```
-
-[openshift]:https://openshift.com
 
 
 ---

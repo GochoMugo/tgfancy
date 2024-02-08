@@ -6,6 +6,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+Removed:
+
+* Removed fanciness: Openshift WebHook
 
 
 ## 0.13.0 - 2017-12-21
