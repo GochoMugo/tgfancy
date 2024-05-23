@@ -3,14 +3,9 @@
 > A Fancy, Higher-Level Wrapper for Telegram Bot API
 >
 > Built on top of [node-telegram-bot-api][api].
->
-> :construction: **Work In Progress** :construction:
 
 [![Version](https://img.shields.io/npm/v/tgfancy.svg)](https://www.npmjs.com/package/tgfancy)
  [![Supported Node.js Versions](https://img.shields.io/node/v/tgfancy.svg)](https://www.npmjs.com/package/tgfancy)
- [![Build Status](https://travis-ci.org/GochoMugo/tgfancy.svg?branch=master)](https://travis-ci.org/GochoMugo/tgfancy)
- [![Coverage Status](https://coveralls.io/repos/github/GochoMugo/tgfancy/badge.svg?branch=master)](https://coveralls.io/github/GochoMugo/tgfancy?branch=master)
- [![Dependency Status](https://gemnasium.com/GochoMugo/tgfancy.svg)](https://gemnasium.com/GochoMugo/tgfancy)
 
 
 ## installation:
@@ -537,7 +532,7 @@ See example at `example/kick-only.js`.
 
 **The MIT License (MIT)**
 
-Copyright (c) 2016 GochoMugo (www.gmugo.in)
+Copyright (c) 2016 GochoMugo <mugo@forfuture.co.ke>
 
 
 [api]: https://github.com/yagop/node-telegram-bot-api
