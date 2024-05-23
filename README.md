@@ -51,11 +51,9 @@ constructor.
 
 * [Ordered Sending](#ordered-sending)
 * [Text Paging](#text-paging)
-* [Chat ID Resolution](#chat-id-resolution)
 * [Rate-Limiting](#ratelimiting)
 * [Emojification](#emojification)
 * [Fetching Updates via WebSocket](#websocket-updates)
-* [Kick-without-Ban](#kick-without-ban)
 
 Have a look at the [API Reference][doc-api].
 
@@ -180,106 +178,6 @@ bot.sendMessage(chatId, veryLongText)
 than 99 parts.
 
 See example at `example/paging-text.js`.
-
-
----
-
-
-<a name="chat-id-resolution"></a>
-### chat ID resolution:
-
-Usernames are automatically resolved to the target's corresponding
-unique identifier. By default, this resolution uses the
-[PWRTelegram API][pwr].
-
-**Feature option:** `chatIdResolution` (see [above](#feature-options))
-
-For example,
-
-```js
-bot.sendMessage("@gochomugo", "Message sent using username");
-```
-
-However, it is possible to define a custom function used to perform
-these resolutions. The function **must** have the signature,
-`resolve(token, chatId, callback)`. The `callback` **must**
-have the signature `callback(error, target)`, where `target` is
-an object representing the target entity.
-
-```js
-const bot = new Tgfancy(token, {
-    tgfancy: {
-        chatIdResolution: {
-            resolve(token, chatId, callback) {
-                // perform the resolution
-                // ... snip ...
-                return callback(null, user);
-            },
-        },
-    },
-});
-```
-
-Fancied functions: `[
-    "deleteChatPhoto",
-    "deleteChatStickerSet",
-    "deleteMessage",
-    "exportChatInviteLink",
-    "forwardMessage",
-    "getChat",
-    "getChatAdministrators",
-    "getChatMember",
-    "getChatMembersCount",
-    "getUserProfilePhotos",
-    "kickChatMember",
-    "leaveChat",
-    "pinChatMessage",
-    "promoteChatMember",
-    "restrictChatMember",
-    "sendAudio",
-    "sendChatAction",
-    "sendContact",
-    "sendDocument",
-    "sendGame",
-    "sendInvoice",
-    "sendLocation",
-    "sendMediaGroup",
-    "sendMessage",
-    "sendPhoto",
-    "sendSticker",
-    "sendVenue",
-    "sendVideo",
-    "sendVideoNote",
-    "sendVoice",
-    "setChatDescription",
-    "setChatPhoto",
-    "setChatStickerSet",
-    "setChatTitle",
-    "setGameScore",
-    "unbanChatMember",
-    "unpinChatMessage",
-]`
-
-See example at `example/resolve-chatid.js`.
-
-**Note:** The Chat ID is resolved **before** the request
-is queued. Consider this, if order of messages gets messed
-up, when using this resolution.
-
-If you want to manually resolve a chat ID, take a look at
-[Tgfancy#resolveChatId][tgfancy-resolvechatid]. For example,
-
-```js
-bot.resolveChatId(chatId)
-    .then(function(result) {
-        console.log(result);
-    });
-```
-
-
-[pwr]:http://pwrtelegram.xyz/
-[tgfancy-resolvechatid]:doc/api.md#Tgfancy+resolveChatId
-
 
 ---
 
@@ -493,36 +391,6 @@ const bot = new Tgfancy(token, {
 See example at `example/web-socket.js`.
 
 [gingerplusplus]:https://github.com/GingerPlusPlus
-
-
----
-
-
-<a name="kick-without-name"></a>
-### Kick-without-Ban:
-
-You can kick a user **without** banning them, that is,
-they will be able to rejoin the group using invite links, etc.
-
-By default, Tgfancy kicks the user through `Tgfancy#kickChatMember()`
-using the default API method `kickChatMember`. Passing `false`
-as the last argument to `Tgfancy#kickChatMember()` will make
-Tgfancy executes the API method `unbanChatMember()` right after
-kicking the chat member, effectively kicking the user, without
-banning them.
-
-**Feature option:** `kickWithoutBan` (see [above](#feature-options))
-
-For example,
-
-```js
-// The last argument is called 'ban', is optional and
-// defaults to 'true'. Passing 'false' causes Tgfancy execute
-// 'unbanChatMember' right after kicking the user.
-bot.kickChatMember(chatId, userId, false);
-```
-
-See example at `example/kick-only.js`.
 
 
 ---

@@ -60,24 +60,9 @@ function createClient(options) {
     const opts = _.defaultsDeep({}, options, {
         tgfancy: {
             emojification: true,
-            chatIdResolution: {
-                resolve: resolveChatId,
-            },
         },
     });
     return new Tgfancy(token, opts);
-}
-
-
-// We are using a custom resolver function, since we are testing
-// that the method invokes resolver function, before sending the
-// message. We do not care how the resolver function works!
-function resolveChatId(token, username, done) {
-    return done(null, {
-        id: userid,
-        username: username.slice(1),
-        // ... other props missing
-    });
 }
 
 
@@ -118,13 +103,6 @@ describe("sanity check: alphabetically-ordered, methods/functions", function() {
     });
     it("ratelimitedFns", function() {
         const fns = Tgfancy.internals.ratelimitedFns;
-        areMethods(fns);
-        checkOrder(fns);
-    });
-    it("resolveChatIdFns", function() {
-        const fns = Tgfancy.internals.resolveChatIdFns.map(function(fn) {
-            return fn[0];
-        });
         areMethods(fns);
         checkOrder(fns);
     });
@@ -188,22 +166,6 @@ describe("Queued-methods (using Tgfancy#sendMessage())", function() {
             });
             return done();
         }
-    });
-});
-
-
-describe("Chat-ID Resolution", function() {
-    this.timeout(timeout);
-    it("resolves username (using Tgfancy#resolveChatId())", function() {
-        return client.resolveChatId(username).then(function(result) {
-            should(result.id).eql(userid);
-        });
-    });
-    it("resolves username (using Tgfancy#sendMessage())", function() {
-        return client.sendMessage(username, "message")
-            .then(function(message) {
-                should(message.chat.id).eql(userid);
-            });
     });
 });
 
@@ -365,6 +327,3 @@ describe.skip("Ratelimiting", function() {
     });
     it("respects the maxBackoff");
 });
-
-
-describe.skip("Kick-without-Ban");

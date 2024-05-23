@@ -9,11 +9,9 @@ Tgfancy
 
 * [Tgfancy](#Tgfancy)
     * [new Tgfancy(token, [options])](#new_Tgfancy_new)
-    * [.resolveChatId(chatId)](#Tgfancy+resolveChatId) ⇒ <code>Promise</code>
     * [.openWebSocket()](#Tgfancy+openWebSocket) ⇒ <code>Promise</code>
     * [.closeWebSocket()](#Tgfancy+closeWebSocket) ⇒ <code>Promise</code>
     * [.hasOpenWebSocket()](#Tgfancy+hasOpenWebSocket) ⇒ <code>Boolean</code>
-    * [.kickChatMember(chatId, userId, [ban])](#Tgfancy+kickChatMember) ⇒ <code>Promise</code>
 
 <a name="new_Tgfancy_new"></a>
 
@@ -26,11 +24,8 @@ Construct a new client.
 | --- | --- | --- | --- |
 | token | <code>String</code> |  |  |
 | [options] | <code>Options</code> |  |  |
-| [options.chatIdResolution] | <code>Boolean</code> \| <code>Object</code> | <code>true</code> |  |
-| [options.chatIdResolution.resolve] | <code>function</code> |  |  |
 | [options.emojification] | <code>Boolean</code> \| <code>Object</code> |  |  |
 | [options.emojify] | <code>function</code> |  |  |
-| [options.kickWithoutBan] | <code>Boolean</code> | <code>true</code> |  |
 | [options.orderedSending] | <code>Boolean</code> | <code>true</code> |  |
 | [options.ratelimiting] | <code>Boolean</code> \| <code>Object</code> | <code>true</code> |  |
 | [options.ratelimiting.maxRetries] | <code>Number</code> |  |  |
@@ -41,18 +36,6 @@ Construct a new client.
 | [options.webSocket] | <code>Boolean</code> \| <code>Object</code> |  |  |
 | [options.webSocket.url] | <code>String</code> |  |  |
 | [options.webSocket.autoOpen] | <code>Boolean</code> | <code>true</code> |  |
-
-<a name="Tgfancy+resolveChatId"></a>
-
-### tgfancy.resolveChatId(chatId) ⇒ <code>Promise</code>
-Resolve chat ID to a User or Chat object.
-
-**Kind**: instance method of [<code>Tgfancy</code>](#Tgfancy)  
-**See**: https://github.com/kamikazechaser/tg-resolve  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| chatId | <code>String</code> | ID of chat |
 
 <a name="Tgfancy+openWebSocket"></a>
 
@@ -74,16 +57,3 @@ Multiple invocations do nothing if websocket is already closed.
 Return `true` if we have an open websocket. Otherwise, `false`.
 
 **Kind**: instance method of [<code>Tgfancy</code>](#Tgfancy)  
-<a name="Tgfancy+kickChatMember"></a>
-
-### tgfancy.kickChatMember(chatId, userId, [ban]) ⇒ <code>Promise</code>
-Kick chat member.
-
-**Kind**: instance method of [<code>Tgfancy</code>](#Tgfancy)  
-
-| Param | Type | Default |
-| --- | --- | --- |
-| chatId | <code>String</code> \| <code>Number</code> |  | 
-| userId | <code>String</code> \| <code>Number</code> |  | 
-| [ban] | <code>Boolean</code> | <code>true</code> | 
-
